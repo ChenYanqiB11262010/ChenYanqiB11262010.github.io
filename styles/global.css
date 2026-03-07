@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Zen+Old+Mincho:wght@400;700;900&family=Noto+Serif+TC:wght@300;400;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;700&display=swap');
+
+html,
+body,
+#__next {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  font-family: 'Inter', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  letter-spacing: 0.03em;
+  line-height: 1.8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Grotesk', 'Zen Old Mincho', 'Noto Serif TC', serif;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  margin: 0 0 0.7em 0;
+}
+
+p,
+li,
+ul {
+  font-family: 'Inter', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  font-size: 1.05em;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  line-height: 2;
+}
+
+section {
+  margin-bottom: 2.5em;
+}
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+
+  /* 頁面通用容器 */
+  .page-container {
+    padding: 80px 20px 60px !important;
+  }
+
+  /* About 頁：Hero 照片 */
+  .hero-photo {
+    height: 320px !important;
+  }
+
+  /* About 頁：Y.C 大標 */
+  .hero-title {
+    font-size: 52px !important;
+    bottom: 16px !important;
+    left: 20px !important;
+  }
+
+  /* About 頁：main content */
+  .about-main {
+    padding: 32px 20px 60px !important;
+  }
+
+  /* About 頁：名字 */
+  .about-name {
+    font-size: 11px !important;
+  }
+
+  /* 通用大標 */
+  .page-h1 {
+    font-size: 28px !important;
+    margin-bottom: 32px !important;
+  }
+
+  /* Works grid 單欄 */
+  .works-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
