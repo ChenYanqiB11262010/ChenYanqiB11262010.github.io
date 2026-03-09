@@ -243,25 +243,23 @@ export default function P5Background() {
 
         function drawRing(p, radius, width) {
           const segments = 120;
+          p.beginShape(p.LINES);
           for (let i = 0; i < segments; i++) {
             const a1 = (i / segments) * p.TWO_PI;
             const a2 = ((i + 1) / segments) * p.TWO_PI;
             const r1 = radius - width / 2;
             const r2 = radius + width / 2;
-            p.line(
-              Math.cos(a1) * r1, Math.sin(a1) * r1, 0,
-              Math.cos(a2) * r1, Math.sin(a2) * r2, 0,
-            );
-          }
-          for (let i = 0; i < segments; i++) {
-            const a1 = (i / segments) * p.TWO_PI;
-            const a2 = ((i + 1) / segments) * p.TWO_PI;
+            
+            // First loop translated to vertex pairs
+            p.vertex(Math.cos(a1) * r1, Math.sin(a1) * r1, 0);
+            p.vertex(Math.cos(a2) * r1, Math.sin(a2) * r2, 0);
+            
+            // Second loop translated to vertex pairs
             const r = radius + width / 2;
-            p.line(
-              Math.cos(a1) * r, Math.sin(a1) * r, 0,
-              Math.cos(a2) * r, Math.sin(a2) * r, 0,
-            );
+            p.vertex(Math.cos(a1) * r, Math.sin(a1) * r, 0);
+            p.vertex(Math.cos(a2) * r, Math.sin(a2) * r, 0);
           }
+          p.endShape();
         }
 
         p.windowResized = function () {
