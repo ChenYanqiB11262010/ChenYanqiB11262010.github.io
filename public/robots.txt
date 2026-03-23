@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chenyanqib11262010.github.io/sitemap.xml

@@ -1,5 +1,6 @@
 
 
+import Head from 'next/head';
 import NavBar from '../components/NavBar';
 
 export default function Home() {
@@ -7,6 +8,16 @@ export default function Home() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#000', color: '#fff', position: 'relative', overflow: 'hidden', margin: 0, padding: 0 }}>
+      <Head>
+        <title>Y.C — 陳彥齊 · Chen Yen-Chi</title>
+        <meta name="description" content="陳彥齊（Chen Yen-Chi）的個人網站。創作橫跨遊戲引擎、聲音設計與即時互動，就讀台北藝術大學新媒體藝術系。" />
+        <meta name="keywords" content="陳彥齊, Chen Yen-Chi, yc58, yc-58, yc58com, 陳彥齊yc, Y.C, 新媒體藝術, 台北藝術大學, 遊戲引擎, 聲音設計, 互動藝術, new media art, TNUA" />
+        <meta property="og:title" content="Y.C — 陳彥齊 · Chen Yen-Chi" />
+        <meta property="og:description" content="創作橫跨遊戲引擎、聲音設計與即時互動裝置的藝術家。" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://chenyanqib11262010.github.io/" />
+        <link rel="canonical" href="https://chenyanqib11262010.github.io/" />
+      </Head>
 
       <NavBar />
       <section style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative', zIndex: 1 }}>

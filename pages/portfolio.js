@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import NavBar from '../components/NavBar';
 import Link from 'next/link';
 
@@ -33,6 +34,16 @@ export default function Portfolio() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#000', color: '#fff', position: 'relative', overflow: 'hidden', margin: 0, padding: 0 }}>
+      <Head>
+        <title>作品集 — 陳彥齊 · Chen Yen-Chi</title>
+        <meta name="description" content="陳彥齊（Chen Yen-Chi）的作品集，包括 The Mission、Deep Shop、Liminal Recurrence 等遊戲引擎與互動藝術創作。" />
+        <meta name="keywords" content="陳彥齊作品, Chen Yen-Chi portfolio, The Mission, Deep Shop, Liminal Recurrence, VR藝術, 互動裝置" />
+        <meta property="og:title" content="作品集 — 陳彥齊 · Chen Yen-Chi" />
+        <meta property="og:description" content="遊戲引擎、聲音設計與即時互動藝術作品集。" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://chenyanqib11262010.github.io/portfolio" />
+        <link rel="canonical" href="https://chenyanqib11262010.github.io/portfolio" />
+      </Head>
 
       <NavBar />
       <section style={{ maxWidth: 960, margin: '0 auto', padding: '100px 24px 80px 24px', position: 'relative', zIndex: 1 }}>

@@ -249,11 +249,11 @@ export default function P5Background() {
             const a2 = ((i + 1) / segments) * p.TWO_PI;
             const r1 = radius - width / 2;
             const r2 = radius + width / 2;
-            
+
             // First loop translated to vertex pairs
             p.vertex(Math.cos(a1) * r1, Math.sin(a1) * r1, 0);
             p.vertex(Math.cos(a2) * r1, Math.sin(a2) * r2, 0);
-            
+
             // Second loop translated to vertex pairs
             const r = radius + width / 2;
             p.vertex(Math.cos(a1) * r, Math.sin(a1) * r, 0);

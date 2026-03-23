@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import NavBar from '../components/NavBar';
 
 
@@ -6,6 +7,16 @@ export default function About() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#000', color: '#fff', position: 'relative', overflow: 'hidden', margin: 0, padding: 0 }}>
+      <Head>
+        <title>關於 — 陳彥齊 · Chen Yen-Chi</title>
+        <meta name="description" content="陳彥齊（Chen Yen-Chi）是就讀台北藝術大學新媒體藝術系的藝術家，創作圍繞遊戲引擎、聲音設計、即時互動裝置與跨領域表演。" />
+        <meta name="keywords" content="陳彥齊, Chen Yen-Chi, yc58, yc-58, yc58com, 陳彥齊yc, Y.C, 新媒體藝術, 遊戲引擎, 互動裝置, 聲音藝術" />
+        <meta property="og:title" content="關於 — 陳彥齊 · Chen Yen-Chi" />
+        <meta property="og:description" content="就讀台北藝術大學新媒體藝術系的藝術家。" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://chenyanqib11262010.github.io/about" />
+        <link rel="canonical" href="https://chenyanqib11262010.github.io/about" />
+      </Head>
 
       <NavBar />
 
