@@ -21,7 +21,7 @@ export default function About() {
       <NavBar />
 
       {/* ── Hero：突破窄欄，全寬照片 ── */}
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '120px 48px 0', position: 'relative', zIndex: 1 }}>
+      <div className="about-hero" style={{ maxWidth: 1000, margin: '0 auto', padding: '120px 48px 0', position: 'relative', zIndex: 1 }}>
         <div style={{ position: 'relative', marginBottom: 56 }}>
 
           {/* 照片 */}
@@ -48,20 +48,20 @@ export default function About() {
             }} />
             {/* Y.C 壓在照片左下 */}
             <div className="hero-title" style={{ position: 'absolute', bottom: 24, left: 48 }}>
-            <h1
-              className="hero-title"
-              style={{
-                fontSize: 96,
-                fontWeight: 700,
-                letterSpacing: '0.03em',
-                lineHeight: 1,
-                margin: 0,
-                color: '#fff',
-              }}
-            >
-              Y.C
-            </h1>
-          </div>
+              <h1
+                className="hero-title"
+                style={{
+                  fontSize: 96,
+                  fontWeight: 700,
+                  letterSpacing: '0.03em',
+                  lineHeight: 1,
+                  margin: 0,
+                  color: '#fff',
+                }}
+              >
+                Y.C
+              </h1>
+            </div>
           </div>
 
         </div>
@@ -76,16 +76,16 @@ export default function About() {
             Chen Yen-Chi &nbsp;·&nbsp; 陳彥齊
           </p>
 
-          <p style={{ fontSize: 16, lineHeight: 2, color: '#fff', marginBottom: 16, wordBreak: 'keep-all' }}>
+          <p style={{ fontSize: 16, lineHeight: 2, color: '#fff', marginBottom: 16 }}>
             創作主要圍繞在遊戲引擎、聲音與即時互動之間。
           </p>
-          <p style={{ fontSize: 16, lineHeight: 2, color: '#fff', marginBottom: 16, wordBreak: 'keep-all' }}>
+          <p style={{ fontSize: 16, lineHeight: 2, color: '#fff', marginBottom: 16 }}>
             目前就讀於台北藝術大學新媒體藝術系，關心數位身體、控制權與社群演算法等議題。
           </p>
-          <p style={{ fontSize: 16, lineHeight: 2, color: '#fff', marginBottom: 16, wordBreak: 'keep-all' }}>
+          <p style={{ fontSize: 16, lineHeight: 2, color: '#fff', marginBottom: 16 }}>
             作品多半結合遊戲機制、聲音設計與表演情境，形式介於裝置、表演與遊戲之間。有時是可被操作的系統，有時是正在發生的現場事件。對於錯位的角色、被留下的數位痕跡，以及人與機器之間不穩定的關係特別感興趣。
           </p>
-          <p style={{ fontSize: 16, lineHeight: 2, color: '#fff', marginBottom: 48, wordBreak: 'keep-all' }}>
+          <p style={{ fontSize: 16, lineHeight: 2, color: '#fff', marginBottom: 48 }}>
             除了個人創作，也參與跨領域合作，嘗試將遊戲、聲音與現場演出轉化為一種能被即時干擾、破壞與重組的經驗。
           </p>
 
@@ -119,9 +119,11 @@ export default function About() {
           </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {[
-              { year: '2025', title: '第二屆北藝新媒卓越獎開幕表演', en: 'Opening Performance — TNUA New Media Excellence Award' },
-              { year: '2025', title: '噪流實習', en: 'Fluid Noise Internship' },
+              { year: '2026', title: '台中國家歌劇院 Lab X 青年創作工作室—延展實境', en: 'NTT Lab X The Young Artists\' Atelier — XR' },
+              { year: '2026', title: '北藝大新媒系111級畢業展《在那出現之前》開幕表演', en: 'Opening Performance — TNUA Department of New Media Art Graduation Exhibition 2026 "Before Zero"' },
               { year: '2025', title: '關渡光藝術節《幻響》', en: 'Kuandu Light Art Festival — Illusonic' },
+              { year: '2025', title: '噪流實習', en: 'Fluid Noise Internship' },
+              { year: '2025', title: '第二屆北藝新媒卓越獎開幕表演', en: 'Opening Performance — TNUA New Media Excellence Award' },
             ].map((item, i) => (
               <li key={i} style={{ display: 'flex', gap: 28, alignItems: 'flex-start', paddingBottom: 24, marginBottom: 0 }}>
                 <span style={{ fontSize: 11, color: '#888', fontWeight: 400, letterSpacing: '0.08em', minWidth: 40, flexShrink: 0, paddingTop: 3 }}>
@@ -155,6 +157,12 @@ export default function About() {
           </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {[
+              {
+                year: '2026',
+                title: '第四屆桃園科技表演藝術獎：樓頂《自動販賣機》／影像技術美術',
+                en: 'The 4th Taoyuan Technology Performing Arts Award: Rooftop "Vending Machine"',
+                enRole: 'Video Technical Artist',
+              },
               {
                 year: '2025',
                 title: '臺灣聲響實驗室－IRCAM「聲鬥陣」進駐計畫／影像設計與協力',

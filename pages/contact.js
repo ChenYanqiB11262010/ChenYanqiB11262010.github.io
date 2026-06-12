@@ -29,7 +29,7 @@ export default function Contact() {
         <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
           {/* Instagram */}
           <a
-            href="https://www.instagram.com/chilark_0.0/"
+            href="https://www.instagram.com/y.c_5.8/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"

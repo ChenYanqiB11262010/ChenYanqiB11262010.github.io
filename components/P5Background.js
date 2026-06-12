@@ -93,8 +93,21 @@ export default function P5Background() {
         let lastMX = 0, lastMY = 0;
         let mouseVel = 0; // 平滑後的滑鼠速度
 
+        // ── 預先計算土星環的 sin/cos 值，避免在 draw loop 中重複計算 ──
+        const RING_SEGMENTS = 120;
+        const cosTable = new Float32Array(RING_SEGMENTS + 1);
+        const sinTable = new Float32Array(RING_SEGMENTS + 1);
+        for (let i = 0; i <= RING_SEGMENTS; i++) {
+          const angle = (i / RING_SEGMENTS) * Math.PI * 2;
+          cosTable[i] = Math.cos(angle);
+          sinTable[i] = Math.sin(angle);
+        }
+
         p.setup = function () {
           const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+          // 限制像素密度最大為 2，防止 Retina / High-DPI 螢幕渲染解析度過高導致 GPU 載載過重
+          p.pixelDensity(Math.min(2, p.displayDensity()));
+
           const el = canvas.elt;
           el.style.position = 'fixed';
           el.style.top = '0';
@@ -148,6 +161,8 @@ export default function P5Background() {
           const maxActive = isHome ? MAX_PARTICLES : 25;
 
           let activeCount = 0;
+
+          // 1. 更新粒子物理狀態與生命值
           for (let pt of particles) {
             // 非主頁超過上限的粒子直接消失
             if (!isHome && activeCount >= maxActive && pt.life > 0) {
@@ -166,20 +181,28 @@ export default function P5Background() {
             }
             if (pt.life > 0) activeCount++;
 
-            // 連線
-            p.stroke(255, 255, 255, LINE_ALPHA * pt.life * opacity);
-            p.strokeWeight(LINE_WEIGHT);
-            p.line(pt.x, pt.y, pt.z, 0, 0, 0);
-
-            // 粒子點
-            p.stroke(255, 255, 255, DOT_ALPHA * pt.life * opacity);
-            p.strokeWeight(pt.size);
-            p.point(pt.x, pt.y, pt.z);
-
             pt.x += pt.vx; pt.y += pt.vy; pt.z += pt.vz;
             if (Math.abs(pt.x) > RANGE) pt.vx *= -1;
             if (Math.abs(pt.y) > RANGE) pt.vy *= -1;
             if (Math.abs(pt.z) > RANGE) pt.vz *= -1;
+          }
+
+          // 2. 批次畫連線（大幅減少 WebGL state 切換與 draw calls）
+          p.strokeWeight(LINE_WEIGHT);
+          for (let pt of particles) {
+            if (pt.life > 0) {
+              p.stroke(255, 255, 255, LINE_ALPHA * pt.life * opacity);
+              p.line(pt.x, pt.y, pt.z, 0, 0, 0);
+            }
+          }
+
+          // 3. 批次畫粒子點
+          for (let pt of particles) {
+            if (pt.life > 0) {
+              p.stroke(255, 255, 255, DOT_ALPHA * pt.life * opacity);
+              p.strokeWeight(pt.size);
+              p.point(pt.x, pt.y, pt.z);
+            }
           }
 
           // ── 以下僅主頁顯示 ──
@@ -242,22 +265,22 @@ export default function P5Background() {
         };
 
         function drawRing(p, radius, width) {
-          const segments = 120;
           p.beginShape(p.LINES);
-          for (let i = 0; i < segments; i++) {
-            const a1 = (i / segments) * p.TWO_PI;
-            const a2 = ((i + 1) / segments) * p.TWO_PI;
-            const r1 = radius - width / 2;
-            const r2 = radius + width / 2;
+          const r1 = radius - width / 2;
+          const r2 = radius + width / 2;
+          for (let i = 0; i < RING_SEGMENTS; i++) {
+            const c1 = cosTable[i];
+            const s1 = sinTable[i];
+            const c2 = cosTable[i + 1];
+            const s2 = sinTable[i + 1];
 
             // First loop translated to vertex pairs
-            p.vertex(Math.cos(a1) * r1, Math.sin(a1) * r1, 0);
-            p.vertex(Math.cos(a2) * r1, Math.sin(a2) * r2, 0);
+            p.vertex(c1 * r1, s1 * r1, 0);
+            p.vertex(c2 * r1, s2 * r2, 0);
 
             // Second loop translated to vertex pairs
-            const r = radius + width / 2;
-            p.vertex(Math.cos(a1) * r, Math.sin(a1) * r, 0);
-            p.vertex(Math.cos(a2) * r, Math.sin(a2) * r, 0);
+            p.vertex(c1 * r2, s1 * r2, 0);
+            p.vertex(c2 * r2, s2 * r2, 0);
           }
           p.endShape();
         }
