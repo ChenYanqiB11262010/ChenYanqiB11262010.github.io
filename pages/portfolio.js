@@ -4,6 +4,14 @@ import Link from 'next/link';
 
 const works = [
   {
+    slug: 'local-position',
+    title: 'localPosition',
+    subtitle: 'XR',
+    artist: '陳彥齊 * 譚可瑩',
+    year: '2026',
+    thumb: '/localPosition/螢幕擷取畫面 2026-06-16 005503.png',
+  },
+  {
     slug: 'the-mission',
     title: 'The Mission',
     subtitle: 'Audio Visual · Animation',
@@ -14,7 +22,7 @@ const works = [
   {
     slug: 'deep-shop',
     title: 'Deep Shop',
-    subtitle: 'VR',
+    subtitle: 'XR',
     artist: '陳彥齊',
     year: '2024',
     thumb: '/Deep shop/deep shopcart.png',

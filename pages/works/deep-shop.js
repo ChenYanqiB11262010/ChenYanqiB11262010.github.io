@@ -29,7 +29,7 @@ export default function DeepShop() {
                     陳彥齊
                 </p>
                 <p style={{ color: '#666', fontSize: 14, margin: '0 0 32px', fontFamily: 'Inter, sans-serif', letterSpacing: '0.05em' }}>
-                    VR &nbsp;·&nbsp; 2024
+                    XR &nbsp;·&nbsp; 2024
                 </p>
 
                 {/* Hero image */}
