@@ -92,6 +92,8 @@ export default function Portfolio() {
                   <img
                     src={work.thumb}
                     alt={work.title}
+                    loading="lazy"
+                    decoding="async"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
                   />
                 </div>

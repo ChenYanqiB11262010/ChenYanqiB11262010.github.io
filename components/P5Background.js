@@ -12,8 +12,9 @@ export default function P5Background() {
 
   useEffect(() => {
     let p5Instance;
+    let cancelled = false;
 
-    import('p5').then(({ default: p5 }) => {
+    function mount(p5) {
       const sketch = (p) => {
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -88,6 +89,7 @@ export default function P5Background() {
         let orbitAngle = 0; // 鏡頭公轉角度
         let ringAngle = 0; // 土星環自轉角度
         let boxFlash = 0; // 正方形閃爍亮度（0–255）
+        let lastIsHome = null; // 追蹤 isHome 是否變化，避免每幀重設 frameRate
 
         // 滑鼠速度追蹤
         let lastMX = 0, lastMY = 0;
@@ -116,6 +118,18 @@ export default function P5Background() {
           el.style.pointerEvents = 'none';
           el.style.display = 'block';
 
+          // WebGL context 可能在分頁閒置/背景太久時被瀏覽器回收（GPU 資源不足），
+          // 導致動態背景永久黑掉、不會自己恢復（'webglcontextrestored' 也不保證會觸發）。
+          // 這裡偵測到遺失後直接重新掛載一份全新的 p5 實例，讓畫面自我修復。
+          el.addEventListener('webglcontextlost', (e) => {
+            e.preventDefault();
+            if (p5Instance) {
+              p5Instance.remove();
+              p5Instance = null;
+            }
+            if (!cancelled) setTimeout(() => mount(p5), 300);
+          }, false);
+
           // 建立所有粒子（初始 life = 0，看不見）
           for (let i = 0; i < MAX_PARTICLES; i++) {
             particles.push({
@@ -129,13 +143,17 @@ export default function P5Background() {
               life: 0, // 0 = 不可見，1 = 完全可見
             });
           }
-          p.frameRate(60);
+          p.frameRate(isHomeRef.current ? 60 : 30);
         };
 
         p.draw = function () {
           p.background(0);
 
           const isHome = isHomeRef.current;
+          if (isHome !== lastIsHome) {
+            p.frameRate(isHome ? 60 : 30);
+            lastIsHome = isHome;
+          }
           // 非主頁：全域壓低不透明度
           if (!isHome) p.tint(255, 255 * SUB_OPACITY);
 
@@ -291,9 +309,26 @@ export default function P5Background() {
       };
 
       p5Instance = new p5(sketch);
+    }
+
+    import('p5').then(({ default: p5 }) => {
+      if (!cancelled) mount(p5);
     });
 
+    // 分頁切到背景（例如視訊會議中被切走）時完全停止渲染，避免持續佔用 CPU/GPU
+    const handleVisibilityChange = () => {
+      if (!p5Instance) return;
+      if (document.hidden) {
+        p5Instance.noLoop();
+      } else {
+        p5Instance.loop();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
+      cancelled = true;
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (p5Instance) p5Instance.remove();
     };
   }, []);

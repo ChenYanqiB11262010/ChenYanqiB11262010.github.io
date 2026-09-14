@@ -82,6 +82,8 @@ export default function TheMission() {
                             <img
                                 src={src}
                                 alt={`The Mission – image ${i + 1}`}
+                                loading="lazy"
+                                decoding="async"
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                             />
                         </div>
