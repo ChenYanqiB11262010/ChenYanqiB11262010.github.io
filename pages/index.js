@@ -1,6 +1,7 @@
 
 
 import Head from 'next/head';
+import { SITE_URL } from '../lib/site';
 import NavBar from '../components/NavBar';
 
 export default function Home() {
@@ -15,8 +16,8 @@ export default function Home() {
         <meta property="og:title" content="Y.C — 陳彥齊 · Chen Yen-Chi" />
         <meta property="og:description" content="創作橫跨遊戲引擎、聲音設計與即時互動裝置的藝術家。" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://chenyanqib11262010.github.io/" />
-        <link rel="canonical" href="https://chenyanqib11262010.github.io/" />
+        <meta property="og:url" content={`${SITE_URL}/`} />
+        <link rel="canonical" href={`${SITE_URL}/`} />
       </Head>
 
       <NavBar />

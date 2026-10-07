@@ -1,3 +1,5 @@
+import Head from 'next/head';
+import { SITE_URL } from '../../lib/site';
 import NavBar from '../../components/NavBar';
 
 
@@ -16,6 +18,14 @@ export default function LiminalRecurrence() {
     return (
         <div style={{ minHeight: '100vh', background: '#000', color: '#fff', position: 'relative', overflow: 'hidden', margin: 0, padding: 0 }}>
 
+
+            <Head>
+                <title>Liminal Recurrence — 陳彥齊 · Chen Yen-Chi</title>
+                <meta property="og:title" content="Liminal Recurrence — 陳彥齊 · Chen Yen-Chi" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={`${SITE_URL}/works/liminal-loop`} />
+                <link rel="canonical" href={`${SITE_URL}/works/liminal-loop`} />
+            </Head>
 
             <NavBar />
 

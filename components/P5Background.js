@@ -14,6 +14,11 @@ export default function P5Background() {
     let p5Instance;
     let cancelled = false;
 
+    // p5 沒指定容器時會把 canvas 塞進頁面上第一個 <main>，
+    // 被該頁的 stacking context 困住而蓋掉內容，所以給它一個掛在 body 尾端的專屬容器
+    const holder = document.createElement('div');
+    document.body.appendChild(holder);
+
     function mount(p5) {
       const sketch = (p) => {
 
@@ -127,7 +132,7 @@ export default function P5Background() {
               p5Instance.remove();
               p5Instance = null;
             }
-            if (!cancelled) setTimeout(() => mount(p5), 300);
+            if (!cancelled) setTimeout(() => { if (!cancelled) mount(p5); }, 300);
           }, false);
 
           // 建立所有粒子（初始 life = 0，看不見）
@@ -308,7 +313,8 @@ export default function P5Background() {
         };
       };
 
-      p5Instance = new p5(sketch);
+      // webglcontextlost 重建時也會走這裡，一樣掛回 holder
+      p5Instance = new p5(sketch, holder);
     }
 
     import('p5').then(({ default: p5 }) => {
@@ -330,6 +336,7 @@ export default function P5Background() {
       cancelled = true;
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (p5Instance) p5Instance.remove();
+      holder.remove();
     };
   }, []);
 

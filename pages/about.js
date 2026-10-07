@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { SITE_URL } from '../lib/site';
 import NavBar from '../components/NavBar';
 
 
@@ -14,8 +15,8 @@ export default function About() {
         <meta property="og:title" content="關於 — 陳彥齊 · Chen Yen-Chi" />
         <meta property="og:description" content="就讀台北藝術大學新媒體藝術系的藝術家。" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://chenyanqib11262010.github.io/about" />
-        <link rel="canonical" href="https://chenyanqib11262010.github.io/about" />
+        <meta property="og:url" content={`${SITE_URL}/about`} />
+        <link rel="canonical" href={`${SITE_URL}/about`} />
       </Head>
 
       <NavBar />

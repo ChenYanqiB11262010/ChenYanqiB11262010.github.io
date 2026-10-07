@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { SITE_URL } from '../lib/site';
 import NavBar from '../components/NavBar';
 
 
@@ -11,8 +12,8 @@ export default function Contact() {
         <title>聯絡 — 陳彥齊 · Chen Yen-Chi</title>
         <meta name="description" content="聯絡陳彥齊（Chen Yen-Chi）——藝術家、新媒體創作者。Email: gufu0508@gmail.com" />
         <meta property="og:title" content="聯絡 — 陳彥齊 · Chen Yen-Chi" />
-        <meta property="og:url" content="https://chenyanqib11262010.github.io/contact" />
-        <link rel="canonical" href="https://chenyanqib11262010.github.io/contact" />
+        <meta property="og:url" content={`${SITE_URL}/contact`} />
+        <link rel="canonical" href={`${SITE_URL}/contact`} />
       </Head>
 
       <NavBar />

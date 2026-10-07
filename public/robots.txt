@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chenyanqib11262010.github.io/sitemap.xml
+Sitemap: https://yc-58.com/sitemap.xml

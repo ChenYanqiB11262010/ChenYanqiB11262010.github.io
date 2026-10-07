@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { SITE_URL } from '../lib/site';
 import NavBar from '../components/NavBar';
 import Link from 'next/link';
 
@@ -49,8 +50,8 @@ export default function Portfolio() {
         <meta property="og:title" content="作品集 — 陳彥齊 · Chen Yen-Chi" />
         <meta property="og:description" content="遊戲引擎、聲音設計與即時互動藝術作品集。" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://chenyanqib11262010.github.io/portfolio" />
-        <link rel="canonical" href="https://chenyanqib11262010.github.io/portfolio" />
+        <meta property="og:url" content={`${SITE_URL}/portfolio`} />
+        <link rel="canonical" href={`${SITE_URL}/portfolio`} />
       </Head>
 
       <NavBar />

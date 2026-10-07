@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { SITE_URL } from '../lib/site';
 import NavBar from '../components/NavBar';
 
 
@@ -11,8 +12,8 @@ export default function Events() {
         <title>活動 — 陳彥齊 · Chen Yen-Chi</title>
         <meta name="description" content="陳彥齊（Chen Yen-Chi）的近期展覽、表演與活動資訊。" />
         <meta property="og:title" content="活動 — 陳彥齊 · Chen Yen-Chi" />
-        <meta property="og:url" content="https://chenyanqib11262010.github.io/events" />
-        <link rel="canonical" href="https://chenyanqib11262010.github.io/events" />
+        <meta property="og:url" content={`${SITE_URL}/events`} />
+        <link rel="canonical" href={`${SITE_URL}/events`} />
       </Head>
 
       <NavBar />
