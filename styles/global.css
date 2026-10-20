@@ -91,4 +91,14 @@ section {
   .works-grid {
     grid-template-columns: 1fr !important;
   }
+
+  /* Events 頁：日期欄與內容改為上下排列 */
+  .event-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .event-title {
+    font-size: 30px !important;
+  }
 }
