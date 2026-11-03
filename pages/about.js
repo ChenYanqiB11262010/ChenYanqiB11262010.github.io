@@ -161,8 +161,8 @@ export default function About() {
             {[
               {
                 year: '2026',
-                title: '2026 聲徜音樂節：Wandering《悸動響2.0》／影像技術協力',
-                en: 'C-LAB Wandering Music Festival 2026 "Throbbing Sonic 2.0"',
+                title: 'C-LAB 聲徜音樂節：Wandering《悸動響2.0》／影像技術協力',
+                en: 'C-LAB Wandering Music Festival "Throbbing Sonic 2.0"',
                 enRole: 'Video Technical Support',
               },
               {
@@ -178,8 +178,8 @@ export default function About() {
               },
               {
                 year: '2025',
-                title: '臺灣聲響實驗室－IRCAM「聲鬥陣」進駐計畫／影像設計與協力',
-                en: 'Taiwan Sound Lab × IRCAM — Residency Program',
+                title: 'C-LAB 臺灣聲響實驗室－IRCAM「聲鬥陣」進駐計畫／影像設計與協力',
+                en: 'C-LAB Taiwan Sound Lab × IRCAM — Residency Program',
                 enRole: 'Visual Design & Production Support',
               },
             ].map((item, i) => (
