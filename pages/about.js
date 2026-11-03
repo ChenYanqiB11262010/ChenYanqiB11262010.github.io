@@ -120,6 +120,7 @@ export default function About() {
           </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {[
+              { year: '2026', title: '2026 臺北數位藝術節《灰色自動體》開幕演出', en: 'Opening Performance — Taipei Digital Art Festival 2026 "Gray Autonomous Entity"' },
               { year: '2026', title: '台中國家歌劇院 Lab X 青年創作工作室—延展實境', en: 'NTT Lab X The Young Artists\' Atelier — XR' },
               { year: '2026', title: '北藝大新媒系111級畢業展《在那出現之前》開幕表演', en: 'Opening Performance — TNUA Department of New Media Art Graduation Exhibition 2026 "Before Zero"' },
               { year: '2025', title: '關渡光藝術節《幻響》', en: 'Kuandu Light Art Festival — Illusonic' },
@@ -160,6 +161,17 @@ export default function About() {
             {[
               {
                 year: '2026',
+                title: '2026 聲徜音樂節：Wandering《悸動響2.0》／影像技術協力',
+                en: 'C-LAB Wandering Music Festival 2026 "Throbbing Sonic 2.0"',
+                enRole: 'Video Technical Support',
+              },
+              {
+                year: '2026',
+                title: 'C-LAB Future Vision Lab 2026 沉浸式影音工作坊－校際成果呈現',
+                en: 'C-LAB Future Vision Lab 2026 — Immersive Audiovisual Workshop: Inter-school Showcase',
+              },
+              {
+                year: '2026',
                 title: '第四屆桃園科技表演藝術獎：樓頂《自動販賣機》／影像技術美術',
                 en: 'The 4th Taoyuan Technology Performing Arts Award: Rooftop "Vending Machine"',
                 enRole: 'Video Technical Artist',
@@ -180,7 +192,7 @@ export default function About() {
                     {item.title}
                   </span>
                   <span style={{ display: 'block', fontSize: 12, color: '#bbb', lineHeight: 1.6, letterSpacing: '0.06em', marginTop: 4 }}>
-                    {item.en} — {item.enRole}
+                    {item.enRole ? `${item.en} — ${item.enRole}` : item.en}
                   </span>
                 </div>
               </li>

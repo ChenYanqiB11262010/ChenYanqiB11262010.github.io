@@ -6,7 +6,7 @@ const events = [
   {
     id: 'daf-2026-haunting-sight',
     festival: '2026 臺北數位藝術節 · 灰色自動體',
-    festivalEn: 'Taipei Digital Art Festival 2026',
+    festivalEn: 'Taipei Digital Art Festival 2026 · Gray Autonomous Entity',
     program: '音像之夜',
     programEn: 'Audiovisual Performance',
     date: '10.31',
