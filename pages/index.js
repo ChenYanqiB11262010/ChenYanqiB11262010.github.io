@@ -22,12 +22,12 @@ export default function Home() {
 
       <NavBar />
       <section style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative', zIndex: 1 }}>
-        <h1 id="yc-flash" style={{
+        <h1 id="yc-flash" data-text="Y.C" style={{
           fontSize: '6vw',
           fontWeight: 'bold',
           margin: 0,
           padding: 0,
-          textShadow: '0 0 4px #fff, 0 0 8px #fff',
+          textShadow: '0 0 1px #fff, 0 0 2px #fff',
           textAlign: 'center',
           letterSpacing: '0.18em',
         }}>Y.C</h1>
@@ -37,12 +37,26 @@ export default function Home() {
             5%,15%,25%,35%,45%,55%,65%,75%,85%,95% { opacity: 0; }
             10%,20%,30%,40%,50%,60%,70%,80%,90% { opacity: 1; }
           }
+          /* 光暈呼吸：只改透明度（交給 GPU 合成），不再每幀改 text-shadow 逼瀏覽器重畫整塊文字 */
           @keyframes ycGlow {
-            0%,100% { text-shadow: 0 0 1px #fff, 0 0 2px #fff; }
-            50% { text-shadow: 0 0 4px #fff, 0 0 8px #fff; }
+            0%,100% { opacity: 0; }
+            50% { opacity: 1; }
+          }
+          #yc-flash::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            text-shadow: 0 0 4px #fff, 0 0 8px #fff;
+            pointer-events: none;
+            will-change: opacity;
+            animation: ycGlow 2.2s ease-in-out 1s infinite;
           }
           #yc-flash {
-            animation: ycFlash 1s linear, ycGlow 2.2s ease-in-out 1s infinite;
+            animation: ycFlash 1s linear;
             display: flex;
             align-items: center;
             justify-content: center;

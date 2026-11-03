@@ -110,10 +110,16 @@ export default function P5Background() {
           sinTable[i] = Math.sin(angle);
         }
 
+        // 土星環的幾何在 setup 裡只建一次並留在 GPU；
+        // 每幀用 beginShape 重畫會讓 p5 重新計算上千段線條的頂點，是最主要的卡頓來源
+        let ringGeoms = [];
+        // 粒子點依（大小, 亮度）分組，每組一次畫完，避免 100 次個別的 point() 呼叫
+        const dotGroups = new Map();
+
         p.setup = function () {
           const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
-          // 限制像素密度最大為 2，防止 Retina / High-DPI 螢幕渲染解析度過高導致 GPU 載載過重
-          p.pixelDensity(Math.min(2, p.displayDensity()));
+          // 限制像素密度最大為 1.5，防止 Retina / 4K 螢幕渲染解析度過高導致 GPU 負載過重
+          p.pixelDensity(Math.min(1.5, p.displayDensity()));
 
           const el = canvas.elt;
           el.style.position = 'fixed';
@@ -144,10 +150,18 @@ export default function P5Background() {
               vx: p.random(-SPEED_XY, SPEED_XY),
               vy: p.random(-SPEED_XY, SPEED_XY),
               vz: p.random(-SPEED_Z, SPEED_Z),
-              size: p.random(SIZE_MIN, SIZE_MAX),
+              // 取到 0.5px 的級距，讓同大小的點能合併成一次繪製
+              size: Math.round(p.random(SIZE_MIN, SIZE_MAX) * 2) / 2,
               life: 0, // 0 = 不可見，1 = 完全可見
             });
           }
+
+          ringGeoms = [RING1_RADIUS, RING2_RADIUS, RING3_RADIUS].map((r) =>
+            p.buildGeometry(() => {
+              p.noFill();
+              drawRing(p, r, 10);
+            })
+          );
           p.frameRate(isHomeRef.current ? 60 : 30);
         };
 
@@ -159,9 +173,6 @@ export default function P5Background() {
             p.frameRate(isHome ? 60 : 30);
             lastIsHome = isHome;
           }
-          // 非主頁：全域壓低不透明度
-          if (!isHome) p.tint(255, 255 * SUB_OPACITY);
-
           // ── 滑鼠速度計算（平滑） ──
           const dx = p.mouseX - lastMX;
           const dy = p.mouseY - lastMY;
@@ -210,21 +221,39 @@ export default function P5Background() {
             if (Math.abs(pt.z) > RANGE) pt.vz *= -1;
           }
 
-          // 2. 批次畫連線（大幅減少 WebGL state 切換與 draw calls）
-          p.strokeWeight(LINE_WEIGHT);
-          for (let pt of particles) {
-            if (pt.life > 0) {
-              p.stroke(255, 255, 255, LINE_ALPHA * pt.life * opacity);
-              p.line(pt.x, pt.y, pt.z, 0, 0, 0);
+          if (activeCount > 0) {
+            // 2. 所有連線放進同一個 shape 一次畫完（每個頂點各自帶顏色）
+            p.strokeWeight(LINE_WEIGHT);
+            p.beginShape(p.LINES);
+            for (let pt of particles) {
+              if (pt.life > 0) {
+                p.stroke(255, 255, 255, LINE_ALPHA * pt.life * opacity);
+                p.vertex(pt.x, pt.y, pt.z);
+                p.vertex(0, 0, 0);
+              }
             }
-          }
+            p.endShape();
 
-          // 3. 批次畫粒子點
-          for (let pt of particles) {
-            if (pt.life > 0) {
-              p.stroke(255, 255, 255, DOT_ALPHA * pt.life * opacity);
-              p.strokeWeight(pt.size);
-              p.point(pt.x, pt.y, pt.z);
+            // 3. 粒子點：依（大小, 亮度）分組，每組畫一次
+            dotGroups.clear();
+            for (let pt of particles) {
+              if (pt.life > 0) {
+                const alpha = Math.round(DOT_ALPHA * pt.life * opacity);
+                const key = pt.size * 1000 + alpha;
+                let group = dotGroups.get(key);
+                if (!group) {
+                  group = { size: pt.size, alpha, pts: [] };
+                  dotGroups.set(key, group);
+                }
+                group.pts.push(pt);
+              }
+            }
+            for (const group of dotGroups.values()) {
+              p.stroke(255, 255, 255, group.alpha);
+              p.strokeWeight(group.size);
+              p.beginShape(p.POINTS);
+              for (const pt of group.pts) p.vertex(pt.x, pt.y, pt.z);
+              p.endShape();
             }
           }
 
@@ -246,7 +275,7 @@ export default function P5Background() {
             p.strokeWeight(RING1_WEIGHT);
             p.rotateX(ringAngle * 0.65 + p.PI * 0.1);
             p.rotateZ(ringAngle * 0.2);
-            drawRing(p, RING1_RADIUS, 10);
+            p.model(ringGeoms[0]);
             p.pop();
 
             // 土星環 2
@@ -256,7 +285,7 @@ export default function P5Background() {
             p.strokeWeight(RING2_WEIGHT);
             p.rotateY(ringAngle * 0.5 + p.PI * 0.3);
             p.rotateX(ringAngle * 0.25 + 0.4);
-            drawRing(p, RING2_RADIUS, 10);
+            p.model(ringGeoms[1]);
             p.pop();
 
             // 土星環 3
@@ -266,7 +295,7 @@ export default function P5Background() {
             p.strokeWeight(RING3_WEIGHT);
             p.rotateZ(ringAngle * 0.4 + p.PI * 0.5);
             p.rotateY(ringAngle * 0.3 + 0.9);
-            drawRing(p, RING3_RADIUS, 10);
+            p.model(ringGeoms[2]);
             p.pop();
 
             // 最外層閃爍正方形線框
